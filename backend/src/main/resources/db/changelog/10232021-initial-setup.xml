@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create-initial-tables" author="nickthegroot">
+        <createTable tableName="leagues">
+            <column name="league_id" type="uniqueidentifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_league" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="players">
+            <column name="player_id" type="uniqueidentifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_player" />
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="league_players">
+            <column name="league_id" type="uniqueidentifier">
+                <constraints nullable="false" foreignKeyName="fk_league_player_legaue" referencedTableName="leagues" referencedColumnNames="league_id" />
+            </column>
+
+            <column name="player_id" type="uniqueidentifier">
+                <constraints nullable="false" foreignKeyName="fk_league_player_player" referencedTableName="players" referencedColumnNames="player_id" />
+            </column>
+
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="league_players" columnNames="league_id, player_id" constraintName="pk_league_players" />
+
+        <createTable tableName="games">
+            <column name="game_id" type="uniqueidentifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_game" />
+            </column>
+
+            <column name="league_id" type="uniqueidentifier">
+                <constraints nullable="false" foreignKeyName="fk_game_legaue" referencedTableName="leagues" referencedColumnNames="league_id" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="matches">
+            <column name="match_id" type="uniqueidentifier">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_match" />
+            </column>
+
+            <column name="game_id" type="uniqueidentifier">
+                <constraints nullable="false" foreignKeyName="fk_match_game" referencedTableName="games" referencedColumnNames="game_id" />
+            </column>
+
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="player_history">
+            <column name="match_id" type="uniqueidentifier">
+                <constraints nullable="false" foreignKeyName="fk_player_history_match" referencedTableName="matches" referencedColumnNames="match_id" />
+            </column>
+
+            <column name="player_id" type="uniqueidentifier">
+                <constraints nullable="false" foreignKeyName="fk_player_history_player" referencedTableName="players" referencedColumnNames="player_id" />
+            </column>
+
+            <column name="rating_delta" type="int">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_at" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="player_history" columnNames="match_id, player_id" constraintName="pk_player_history" />
+
+    </changeSet>
+
+</databaseChangeLog>
