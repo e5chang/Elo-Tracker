@@ -91,7 +91,7 @@ const Carousel = () => {
         <View style={{ alignItems: "center" }}>
             <CarouselComp
                 layout="default"
-                layourCardOffest={9}
+                layoutCardOffset={9}
                 ref={isCarousel}
                 data={APPDATA}
                 renderItem={CarouselItem}

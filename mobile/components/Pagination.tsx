@@ -1,3 +1,5 @@
+// does not work!!
+
 import React, { useRef } from 'react'
 import { View, StyleSheet, Dimensions, Text, Animated, SafeAreaView, FlatList } from 'react-native'
 import Board1Image from '../assets/images/o1.png'
