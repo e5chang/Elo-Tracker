@@ -1,27 +1,37 @@
 import React, {
-  createContext,
   Dispatch,
   FC,
   useContext,
   useReducer,
 } from "react";
 import jwtDecode from "jwt-decode";
+import API from "../requests/api";
 
-interface User {
+export interface JWTToken {
   family_name: string;
   given_name: string;
   nickname: string;
   picture: string;
+  sub: string;
+}
+
+export interface Player {
+  firstName: string;
+  lastName: string;
+  picture: string;
+  externalId: string;
+  playerId: string;
 }
 
 interface LoginAction {
   type: "login";
-  idToken: string;
+  player: Player;
 }
+
 type Action = LoginAction;
 
 interface State {
-  user?: User;
+  player?: Player;
 }
 
 export const UserContext = React.createContext<{
@@ -36,16 +46,17 @@ export const UserProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer((state: State, action: Action) => {
     switch (action.type) {
       case "login":
-        const user = jwtDecode(action.idToken) as User;
         return {
           ...state,
-          user,
+          player: action.player,
         };
 
       default:
         return state;
     }
   }, {});
+
+  
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>

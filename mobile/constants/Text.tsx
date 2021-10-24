@@ -2,13 +2,12 @@ import styled from '@emotion/native';
 import { FontNames } from './Fonts';
 
 export const Header = styled.Text({
-    fontFamily: FontNames.InterBold,
+    fontFamily: FontNames.Inter,
     fontWeight: 'bold',
     fontSize: 22,
-    margin: 10,
 })
 
 export const Paragraph = styled.Text({
-    fontFamily: FontNames.InterMedium,
+    fontFamily: FontNames.Inter,
     fontSize: 12,
 })

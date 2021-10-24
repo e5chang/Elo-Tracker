@@ -26,8 +26,8 @@ class LeagueDao {
             FROM leagues l
             WHERE l.league_id IN (
                 SELECT league_id
-                FROM players
-                WHERE player.player_id = ?
+                FROM league_players
+                WHERE player_id = ?
             ) 
         """.trimIndent(),
         LeagueMapper(),

@@ -11,6 +11,8 @@ class PlayerMapper : RowMapper<Player> {
         playerId = UUID.fromString(rs.getString("player_id")),
         firstName = rs.getString("first_name"),
         lastName = rs.getString("last_name"),
+        picture = rs.getString("picture"),
+        externalId = rs.getString("external_id"),
     )
 
 }

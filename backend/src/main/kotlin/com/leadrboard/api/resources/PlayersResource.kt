@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/players")
 class PlayersResource {
 
     @Autowired
@@ -25,8 +25,15 @@ class PlayersResource {
     lateinit var playerDao: PlayerDao
 
     @PutMapping("/")
-    fun registerNewPlayer(@RequestBody player: Player) {
+    fun registerNewPlayer(@RequestBody player: Player): Player {
+        if (player.externalId != null) {
+            val existingPlayer = playerDao.getPlayerByExternalId(player.externalId)
+            if (existingPlayer != null) {
+                return existingPlayer
+            }
+        }
         playerDao.savePlayer(player)
+        return player
     }
 
     @GetMapping("/{userId}/leagues")
