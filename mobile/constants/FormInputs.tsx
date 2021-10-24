@@ -8,4 +8,6 @@ export const FormInput = styled.TextInput({
     borderBottomColor: Colors.accentGreen,
     borderBottomWidth: 1,
     height: 50,
+    marginBottom: 5,
+    width: 300,
 });

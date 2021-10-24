@@ -4,7 +4,8 @@ import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Fonts } from "./constants/Fonts";
 import { AuthContextProvider, initializeAuthContext } from "./hooks/AuthContext";
-import LandingPage from "./screens/Login";
+import Onboarding from "./screens/Onboarding";
+import Login from "./screens/Login"
 
 export default function App() {
   const [ready] = useFonts(Fonts)
@@ -16,7 +17,7 @@ export default function App() {
     <AuthContextProvider value={initializeAuthContext()}>
       <SafeAreaProvider>
         <StatusBar style="dark" />
-        <LandingPage />
+        <Onboarding />
       </SafeAreaProvider>
     </AuthContextProvider>
   );
