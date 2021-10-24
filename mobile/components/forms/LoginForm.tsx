@@ -1,33 +1,40 @@
 import React, { FC } from "react";
-import { Controller, useForm } from "react-hook-form"
-import { Button, TextInput, View } from "react-native";
+import { Controller, useForm } from "react-hook-form";
+import { Button, View } from "react-native";
+import { Colors } from "../../constants/Colors";
+import { FormInput } from "../../constants/FormInputs";
+import { ValidateEmail } from "../../constants/RegexPatterns";
 
 interface FormData {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 interface Props {
-    onSubmit: (data: FormData) => void | Promise<void>;
+  onSubmit: (data: FormData) => void | Promise<void>;
 }
 
 export const LoginForm: FC<Props> = ({ onSubmit }) => {
-  const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
-  console.log(errors)
+  const { control, handleSubmit, formState } = useForm<FormData>();
 
   return (
     <View>
       <Controller
         control={control}
-        rules={{ required: true }}
+        rules={{
+          required: true,
+          pattern: ValidateEmail,
+        }}
         render={({ field }) => (
-          <TextInput
+          <FormInput
             // style={styles.input}
+            placeholder="Email"
+            placeholderTextColor={Colors.black}
+            textContentType="username"
             {...field}
           />
         )}
         name="email"
-        defaultValue=""
       />
       {/* {errors.firstName && <Text>This is required.</Text>} */}
 
@@ -35,16 +42,23 @@ export const LoginForm: FC<Props> = ({ onSubmit }) => {
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <TextInput
+          <FormInput
             // style={styles.input}
+            placeholder="Password"
+            placeholderTextColor={Colors.black}
+            secureTextEntry
+            textContentType="password"
             {...field}
           />
         )}
         name="password"
-        defaultValue=""
       />
 
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Button
+        onPress={handleSubmit(onSubmit)}
+        title="Submit"
+        color={formState.isValid ? Colors.accentGreen : "red"}
+      />
     </View>
   );
-}
+};
