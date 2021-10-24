@@ -54,7 +54,6 @@
             <column name="league_id" type="uniqueidentifier">
                 <constraints nullable="false" foreignKeyName="fk_game_legaue" referencedTableName="leagues" referencedColumnNames="league_id" />
             </column>
-
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
