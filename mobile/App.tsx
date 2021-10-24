@@ -3,8 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Fonts } from "./constants/Fonts";
-import { AuthContextProvider, initializeAuthContext } from "./hooks/AuthContext";
-import LandingPage from "./screens/Login";
+import { UserProvider } from "./hooks/AuthContext";
+import Navigation from "./screens/Navigation";
 
 export default function App() {
   const [ready] = useFonts(Fonts)
@@ -13,11 +13,11 @@ export default function App() {
   }
 
   return (
-    <AuthContextProvider value={initializeAuthContext()}>
+    <UserProvider>
       <SafeAreaProvider>
         <StatusBar style="dark" />
-        <LandingPage />
+        <Navigation />
       </SafeAreaProvider>
-    </AuthContextProvider>
+    </UserProvider>
   );
 }
