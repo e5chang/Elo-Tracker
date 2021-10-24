@@ -14,7 +14,7 @@ export interface Game {
 
 class API {
     constructor(
-        private base = 'https://cf65250b6c25.ngrok.io'
+        private base = 'https://4b3d8f158f3f.ngrok.io'
     ) {}
 
     async updatePlayerInformation(player: Player)  {
